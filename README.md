@@ -7,9 +7,9 @@ With the inputs of a business type and location, return data on 100 nearby busin
 Create and activate a virtual environment:
 
 ```sh
-conda create -n yahooAPI-env python=3.8
+conda create -n yelpAPI-env python=3.8
 
-conda activate yahooAPI-env
+conda activate yelpAPI-env
 ```
 
 Install package dependencies:
@@ -21,14 +21,14 @@ pip install -r requirements.txt
 ## Configuration
 
 
-[Obtain an API Key](https://www.alphavantage.co/support/#api-key) from AlphaVantage.
+[Obtain an API Key](https://www.yelp.com/developers/documentation/v3/authentication) from Yelp.
 
 Then create a local ".env" file and provide the key like this:
 
 ```sh
 # this is the ".env" file...
 
-ALPHAVANTAGE_API_KEY="_________"
+YELP_API_KEY="_________"
 ```
 
 
@@ -38,5 +38,5 @@ ALPHAVANTAGE_API_KEY="_________"
 Run an example script:
 
 ```sh
-python -m app.my_script
+python -m app
 ```
