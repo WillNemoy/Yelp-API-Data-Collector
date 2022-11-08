@@ -27,15 +27,13 @@ Then create a local ".env" file and provide the key like this:
 
 ```sh
 # this is the ".env" file...
-
-YELP_API_KEY="_________"
 ```
 
 
 
 ## Usage
 
-Run an example script:
+Run the program:
 
 ```sh
 python -m app
