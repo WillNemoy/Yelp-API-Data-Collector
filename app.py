@@ -7,17 +7,10 @@ from yelpapi import YelpAPI
 import pandas as pd
 import numpy as np
 
-
-load_dotenv() #look in the ".env" file for env vars
-
-
-##import os
-##from dotenv import load_dotenv
-
-#import pandas as pd
-#import numpy as np
 #import datetime
 #from openpyxl import Workbook, load_workbook
+
+load_dotenv() #look in the ".env" file for env vars
 
 
 YELP_API_KEY = os.getenv("YELP_API_KEY")
