@@ -27,6 +27,9 @@ Then create a local ".env" file and provide the key like this:
 
 ```sh
 # this is the ".env" file...
+
+YELP_API_KEY="_________"
+
 ```
 
 
@@ -36,5 +39,5 @@ Then create a local ".env" file and provide the key like this:
 Run the program:
 
 ```sh
-python -m app
+python app.PY
 ```
