@@ -39,5 +39,5 @@ YELP_API_KEY="_________"
 Run the program:
 
 ```sh
-python app.PY
+python app.py
 ```
