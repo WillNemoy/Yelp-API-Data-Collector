@@ -158,7 +158,7 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
         df.to_excel(writer, sheet_name='Data')
         df_sheet2.to_excel(writer, sheet_name='Categories')
         df_sheet3.to_excel(writer, sheet_name='Reviews')
-        df_sheet4.to_excel(writer, sheet_name='Reviews Words')
+        df_sheet4.to_excel(writer, sheet_name='Review Words')
     
     
     
@@ -170,8 +170,6 @@ YELP_API_KEY = os.getenv("YELP_API_KEY")
 user_search_term = input("What type of businesses are you interested in? ")
 user_location = input("What area should we focus on? ")
 
-my_reviews = yelpAPI(YELP_API_KEY, user_search_term, user_location)
-
-pprint(my_reviews)
+yelpAPI(YELP_API_KEY, user_search_term, user_location)
 
 
