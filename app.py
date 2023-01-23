@@ -87,6 +87,68 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
                        'Rating': ratings_list,
                        'Review': text_list})
 
+    #Sheet 4 - Reviews Words
+    
+    #turn a review's text into a list and remove grammer and non-letter/non-numbers
+    def prepareReviewText(reviewListNumber):
+
+        reviewTextString = str(yelp_reviews_list[reviewListNumber].getText())
+
+        #replace ... and \n
+        reviewTextString = reviewTextString.replace("\n"," ")
+        reviewTextString = reviewTextString.replace("..."," ")
+
+
+        #remove non-letters and non-numbers
+        newReviewTextString = ""
+        for character in reviewTextString:
+            if character.isalnum() or character == " " or character == "#" or character == "'" or character == "-":
+                newReviewTextString += character.lower()
+
+        reviewTextList = newReviewTextString.split()
+
+        return reviewTextList
+    
+    #create a class and list of the Yelp data
+    class yelpReview:
+        def __init__(self, idParameter, ratingParameter, textParameter):
+            self.id = idParameter
+            self.rating = ratingParameter
+            self.text = textParameter
+
+        def getId(self):
+            return self.id
+
+        def getRating(self):
+            return self.rating
+
+        def getText(self):
+            return self.text
+
+    yelp_reviews_list = []
+
+    for i in range(len(reviews_id_list)):
+        yelp_review = yelpReview(reviews_id_list[i], ratings_list[i], text_list[i])
+        yelp_reviews_list.append(yelp_review)
+    
+    #create the review words df
+    data_list_for_df_reviews = []
+
+    for i in range(len(yelp_reviews_list)):
+        listOfWords = prepareReviewText(i)
+        for x in range(len(listOfWords)):
+            data_entry = []
+
+            id = i
+            word = listOfWords[x]
+            
+            data_entry.append(id)
+            data_entry.append(word)
+            
+            data_list_for_df_reviews.append(data_entry)
+            
+    df_sheet4 = pd.DataFrame(data_list_for_df_reviews, columns=["Id", "Review Words"])
+
     
     
     #to an Excel file!
@@ -96,6 +158,7 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
         df.to_excel(writer, sheet_name='Data')
         df_sheet2.to_excel(writer, sheet_name='Categories')
         df_sheet3.to_excel(writer, sheet_name='Reviews')
+        df_sheet4.to_excel(writer, sheet_name='Reviews Words')
     
     
     
