@@ -74,6 +74,6 @@ user_location = input("What area should we focus on? ")
 
 my_reviews = yelpAPI(YELP_API_KEY, user_search_term, user_location)
 
-print(my_reviews)
+pprint(my_reviews)
 
 
