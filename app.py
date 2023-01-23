@@ -15,6 +15,7 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
     
     with YelpAPI(YELP_API_KEY_parameter, timeout_s = 3.0) as yelp_api:
         data = yelp_api.search_query(term=search_term, location=location_parameter, limit=50)
+        review_data = yelp_api.reviews_query(id='amys-ice-creams-austin-3')
 
     #Sheet 1 Consolidated Code
     df = pd.DataFrame(data["businesses"])
@@ -57,10 +58,13 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
     df_sheet2 = df_sheet2.rename(columns={0:"Business Id", 1:"Categories"})
 
     excel_file_name = "Yelp Data" + ", " + location_parameter + ", " + search_term + ".xlsx"
+    
     #to an Excel file!
     with pd.ExcelWriter(excel_file_name) as writer:  
         df.to_excel(writer, sheet_name='Data')
         df_sheet2.to_excel(writer, sheet_name='Categories')
+
+    return review_data
 
 #run the function
 YELP_API_KEY = os.getenv("YELP_API_KEY")
@@ -68,6 +72,8 @@ YELP_API_KEY = os.getenv("YELP_API_KEY")
 user_search_term = input("What type of businesses are you interested in? ")
 user_location = input("What area should we focus on? ")
 
-yelpAPI(YELP_API_KEY, user_search_term, user_location)
+my_reviews = yelpAPI(YELP_API_KEY, user_search_term, user_location)
+
+print(my_reviews)
 
 
