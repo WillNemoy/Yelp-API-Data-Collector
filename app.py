@@ -12,11 +12,12 @@ from spacy.lang.en.stop_words import STOP_WORDS
 
 
 
-load_dotenv() #look in the ".env" file for env vars
-nlp = English() # Load English tokenizer, tagger, parser, NER and word vectors
+
 
 
 def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
+
+    nlp = English() # Load English tokenizer, tagger, parser, NER and word vectors
     
     with YelpAPI(YELP_API_KEY_parameter, timeout_s = 3.0) as yelp_api:
         data = yelp_api.search_query(term=search_term, location=location_parameter, limit=50)
@@ -182,6 +183,8 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
     
 
 #run the function
+load_dotenv() #look in the ".env" file for env vars
+
 YELP_API_KEY = os.getenv("YELP_API_KEY")
 
 user_search_term = input("What type of businesses are you interested in? ")
