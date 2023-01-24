@@ -4,4 +4,4 @@ yelpapi
 pandas
 numpy
 openpyxl
-nltk
+spacy

@@ -7,13 +7,13 @@ from yelpapi import YelpAPI
 import pandas as pd
 import numpy as np
 
-import openpyxl
-import nltk
-from nltk.corpus import stopwords
-nltk.download('stopwords')
-set(stopwords.words('english'))
+from spacy.lang.en import English
+from spacy.lang.en.stop_words import STOP_WORDS
+
+
 
 load_dotenv() #look in the ".env" file for env vars
+nlp = English() # Load English tokenizer, tagger, parser, NER and word vectors
 
 
 def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
@@ -107,12 +107,24 @@ def yelpAPI(YELP_API_KEY_parameter, search_term, location_parameter):
         #remove non-letters and non-numbers
         newReviewTextString = ""
         for character in reviewTextString:
-            if character.isalnum() or character == " " or character == "#" or character == "'" or character == "-":
+            if (character.isalnum() 
+                or character == " " 
+                or character == "#" 
+                or character == "'" 
+                or character == "-"):
+
                 newReviewTextString += character.lower()
 
         reviewTextList = newReviewTextString.split()
 
-        return reviewTextList
+        reviewTextKeywords = []
+
+        for word in reviewTextList:
+            lexeme = nlp.vocab[word]
+            if lexeme.is_stop == False:
+                reviewTextKeywords.append(word) 
+
+        return reviewTextKeywords
     
     #create a class and list of the Yelp data
     class yelpReview:
@@ -178,3 +190,33 @@ user_location = input("What area should we focus on? ")
 yelpAPI(YELP_API_KEY, user_search_term, user_location)
 
 
+#https://www.analyticsvidhya.com/blog/2019/08/how-to-remove-stopwords-text-normalization-nltk-spacy-gensim-python/
+"""
+# Load English tokenizer, tagger, parser, NER and word vectors
+nlp = English()
+
+text = "He determined to drop his litigation with the monastry, and relinguish his claims to the wood-cuting and 
+fishery rihgts at once. He was the more ready to do this becuase the rights had become much less valuable, and he had 
+indeed the vaguest idea where the wood and river in question were."
+
+#  "nlp" Object is used to create documents with linguistic annotations.
+my_doc = nlp(text)
+
+# Create list of word tokens
+token_list = []
+for token in my_doc:
+    token_list.append(token.text)
+
+
+# Create list of word tokens after removing stopwords
+will_test = ["this", "is", "my", "list", "of", "words"]
+filtered_sentence =[] 
+
+for word in will_test:
+    lexeme = nlp.vocab[word]
+    if lexeme.is_stop == False:
+        filtered_sentence.append(word) 
+
+print(will_test)
+print(filtered_sentence)
+"""
