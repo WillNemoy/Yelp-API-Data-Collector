@@ -4,3 +4,4 @@ yelpapi
 pandas
 numpy
 openpyxl
+nltk

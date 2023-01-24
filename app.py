@@ -8,6 +8,11 @@ import pandas as pd
 import numpy as np
 
 import openpyxl
+import nltk
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+set(stopwords.words('english'))
+
 load_dotenv() #look in the ".env" file for env vars
 
 
